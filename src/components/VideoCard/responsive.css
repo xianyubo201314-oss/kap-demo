@@ -1,0 +1,105 @@
+/* ===== VideoCard 全新自适应：完美一屏展示 ===== */
+.vc-scale-wrapper {
+  width: 100%;
+  height: 100%; /* Fill the parent .case-item */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* 缩放比例现在由 ResizeObserver 在 VideoCard.jsx 中计算并设置为内联变量 --scale */
+}
+
+/* 锁定原始宽高 */
+.vc-root {
+  box-sizing: border-box;
+  width: 1726px !important;
+  height: 744px !important;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  gap: 12px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  transform: scale(var(--scale));
+  transform-origin: center center; /* 将其修改为水平居中缩放 */
+  overflow: visible !important; /* 修改为 visible 避免被截断 */
+}
+
+/* 打标状态下高度增加 */
+.vc-root.marked {
+  height: 784px !important;
+  padding: 0;
+  gap: 0;
+}
+
+.vc-root.marked .vc-main {
+  margin-top: -12px;
+  padding: 16px;
+  z-index: 2;
+  background: #FFFFFF;
+  border-radius: 0 0 8px 8px;
+}
+
+/* 强制三列不换行 */
+.vc-main {
+  box-sizing: border-box;
+  width: 1696px;
+  height: 714px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 16px;
+  flex-wrap: nowrap !important;
+}
+
+/* 左列：精确 466px */
+.vc-left {
+  box-sizing: border-box;
+  flex: 0 0 466px !important;
+  width: 466px !important;
+  max-width: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  overflow: hidden;
+}
+
+/* 中列：精确 873px */
+.vc-center {
+  box-sizing: border-box;
+  flex: 0 0 873px !important;
+  width: 873px !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  overflow: hidden;
+}
+
+/* 右列：精确 325px */
+.vc-right {
+  box-sizing: border-box;
+  flex: 0 0 325px !important;
+  width: 325px !important;
+  max-width: none !important;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow: hidden;
+}
+
+/* 移除原有的自动折行高度限制，恢复原始尺寸 */
+.vc-comment-section {
+  flex: 0 0 438px !important;
+  height: 438px !important;
+}
+
+.vc-ai-section {
+  flex: 0 0 264px !important;
+  height: 264px !important;
+}

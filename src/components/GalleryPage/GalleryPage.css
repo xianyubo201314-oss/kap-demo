@@ -1,0 +1,124 @@
+/* ===== GalleryPage：参考稿顶栏 + 浅灰底 + 5×2 网格 ===== */
+
+.gp-root {
+  box-sizing: border-box;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  background: #f0f0f0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 8px 0 20px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* 顶栏：与参考一致为浅色背景上的左文案 + 右关闭，不用整条白底工具栏 */
+.gp-header {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 16px 14px;
+  position: relative;
+  width: 100%;
+  background: transparent;
+  z-index: 1;
+}
+
+.gp-count {
+  font-family: 'PingFang SC', -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #252626;
+}
+
+.gp-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.gp-close-btn:hover {
+  opacity: 0.72;
+}
+
+.gp-close-btn:focus-visible {
+  outline: 2px solid #1890ff;
+  outline-offset: 2px;
+}
+
+.gp-close-icon {
+  width: 32px;
+  height: 32px;
+  display: block;
+  object-fit: contain;
+}
+
+/* 5 列 × 2 行，间距约 8px */
+.gp-grid {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  align-content: start;
+}
+
+.gp-thumb {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.gp-thumb:hover {
+  opacity: 0.94;
+}
+
+.gp-thumb-img {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  aspect-ratio: 329 / 586;
+  height: auto;
+  object-fit: cover;
+  vertical-align: top;
+  border-radius: 8px;
+}
+
+.gp-play-overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.gp-hand-overlay {
+  position: absolute;
+  right: 8%;
+  bottom: 6%;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  pointer-events: none;
+}

@@ -1,0 +1,15 @@
+# 依赖与构建产物（Netlify 上会自己 npm run build）
+node_modules/
+dist/
+
+# 本地 Figma/插件导出，体积大，不必进 Git
+.codeflicker/
+
+# 本地环境
+.env
+.env.local
+.env.*.local
+
+# 系统文件
+.DS_Store
+*.log

@@ -1,0 +1,35 @@
+/* ===== 滚动条隐藏与悬浮显示（Webkit） ===== */
+/* 通用隐藏滚动条轨道和滑块，只在 hover 时显示 */
+
+/* 针对 ASR/OCR 文本区、评论区、AI智能辅助 */
+.vc-ab-text::-webkit-scrollbar,
+.vc-comment-body::-webkit-scrollbar,
+.vc-ai-body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.vc-ab-text::-webkit-scrollbar-track,
+.vc-comment-body::-webkit-scrollbar-track,
+.vc-ai-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.vc-ab-text::-webkit-scrollbar-thumb,
+.vc-comment-body::-webkit-scrollbar-thumb,
+.vc-ai-body::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.vc-ab-text:hover::-webkit-scrollbar-thumb,
+.vc-comment-body:hover::-webkit-scrollbar-thumb,
+.vc-ai-body:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.vc-ab-text:hover::-webkit-scrollbar-thumb:hover,
+.vc-comment-body:hover::-webkit-scrollbar-thumb:hover,
+.vc-ai-body:hover::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}

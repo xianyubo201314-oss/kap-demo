@@ -1,0 +1,174 @@
+/* ===== BottomBar 底部操作栏 - Figma 367:2560 & 376:4864 ===== */
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 44px;
+  background: #FFFFFF;
+  box-shadow: 0px -1px 8px rgba(12, 18, 31, 0.08);
+  z-index: 100;
+}
+
+.bottom-bar-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* 左侧快捷键区域 */
+.bb-left-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bb-label {
+  font-size: 12px;
+  line-height: 18px;
+  color: #898A8C;
+  font-family: 'PingFang SC', sans-serif;
+  white-space: nowrap;
+}
+
+.bb-divider {
+  width: 1px;
+  height: 12px;
+  background: #D5D6D9;
+}
+
+.bb-shortcut-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 单个快捷键 */
+.bb-shortcut-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.bb-key-badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px; /* Figma 中是 16px 但有时 14px 更适中，尊重设计选 14px-16px */
+  font-weight: 600;
+  font-family: 'PingFang SC', sans-serif;
+  background: var(--s-bg);
+  color: var(--s-color);
+  transition: all 0.15s ease-out;
+}
+
+.bb-shortcut-label {
+  font-size: 12px;
+  line-height: 18px;
+  color: #575859;
+  white-space: nowrap;
+  transition: color 0.15s;
+  font-family: 'PingFang SC', sans-serif;
+}
+
+/* 快捷键 Hover 和 Active 交互状态 */
+.bb-shortcut-item:hover .bb-key-badge,
+.bb-shortcut-item.active .bb-key-badge {
+  background: var(--s-color);
+  color: #FFFFFF;
+  transform: scale(1.1);
+}
+
+.bb-shortcut-item:hover .bb-shortcut-label,
+.bb-shortcut-item.active .bb-shortcut-label {
+  color: #1F2329;
+  font-weight: 500;
+}
+
+.bb-shortcut-item.active .bb-key-badge {
+  transform: scale(0.9); /* 按下时的缩放 */
+}
+
+/* 右侧按钮区域 */
+.bb-right-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bb-pin-icon {
+  flex-shrink: 0;
+  color: #898A8C;
+  cursor: pointer;
+  transition: color 0.15s;
+  margin-right: 8px;
+}
+.bb-pin-icon:hover {
+  color: #575859;
+}
+
+/* 右侧按钮基础样式 */
+.bb-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.15s;
+  padding: 0 15px;
+  flex-shrink: 0;
+}
+
+.bb-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 提交并结束 */
+.bb-btn-outline {
+  background: #FFFFFF;
+  border: 1px solid #326BFB;
+  color: #326BFB;
+}
+
+.bb-btn-outline:hover {
+  background: rgba(50, 107, 251, 0.05);
+}
+
+.bb-btn-outline.active {
+  background: rgba(50, 107, 251, 0.15);
+  transform: scale(0.98);
+}
+
+/* 提交 */
+.bb-btn-primary {
+  background: #326BFB;
+  border: 1px solid #326BFB;
+  color: #FFFFFF;
+  padding: 0 16px;
+}
+
+.bb-btn-primary:hover {
+  background: #2856db;
+}
+
+.bb-btn-primary.active {
+  background: #1e45b8;
+  transform: scale(0.98);
+}

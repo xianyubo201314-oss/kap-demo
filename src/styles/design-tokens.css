@@ -1,0 +1,184 @@
+/* Design Tokens - 从Figma提取 */
+:root {
+  /* Colors - 颜色系统 */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+  --color-bg-primary: #F3F7FE;
+  --color-bg-component: #FFFFFF;
+  --color-bg-secondary: #F5F7FA;
+  --color-bg-tertiary: #FAFAFA;
+  --color-bg-brand: #326BFB;
+  --color-bg-warning: #FFFBE6;
+  --color-bg-warning-hover: #FFF6E8;
+  --color-bg-warning-notice: #FEF1E5;
+  
+  /* Text Colors */
+  --color-text-primary: #252626;
+  --color-text-secondary: #575859;
+  --color-text-tertiary: #898A8C;
+  --color-text-brand: #326BFB;
+  --color-text-white: #FFFFFF;
+  --color-text-disable: #BBBDBF;
+  --color-text-warning: #D98900;
+  
+  /* Brand Colors */
+  --color-brand-red: #F22D1F;
+  --color-brand-orange: #ED6A05;
+  --color-brand-blue: #326BFB;
+  --color-brand-green: #2A7722;
+  --color-brand-yellow: #EE8A00;
+  
+  /* Semantic Colors */
+  --color-error: #F22D1F;
+  --color-warning: #EE8A00;
+  --color-success: #1E9E40;
+  --color-info: #326BFB;
+  
+  /* Border Colors */
+  --color-border-primary: #EBEDF0;
+  --color-border-secondary: rgba(87, 88, 89, 0.3);
+  
+  /* Fill Colors */
+  --color-fill-tertiary: #D5D6D9;
+  --color-fill-secondary: #898A8C;
+  
+  /* Typography - 字体系统 */
+  --font-family: "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-number: "DIN Alternate", sans-serif;
+  
+  /* Font Sizes */
+  --font-size-caption: 12px;
+  --font-size-body: 14px;
+  --font-size-h5: 16px;
+  --font-size-h4: 18px;
+  
+  /* Line Heights */
+  --line-height-caption: 1.5em;
+  --line-height-body: 1.5714em;
+  --line-height-heading: 1.25em;
+  
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Spacing - 间距系统 */
+  --spacing-xs: 2px;
+  --spacing-sm: 4px;
+  --spacing-md: 8px;
+  --spacing-lg: 12px;
+  --spacing-xl: 16px;
+  --spacing-xxl: 24px;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 100px;
+  
+  /* Shadows */
+  --shadow-sm: 0px 1px 0.8px 0px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0px 2px 5px 0px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0px 1px 8px 0px rgba(12, 18, 31, 0.08);
+  --shadow-top: 0px -1px 8px 0px rgba(12, 18, 31, 0.08);
+  
+  /* Z-index */
+  --z-index-normal: 1;
+  --z-index-dropdown: 10;
+  --z-index-modal: 100;
+  --z-index-overlay: 1000;
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography Classes - 基于Figma字体样式 */
+.font-caption {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  font-weight: var(--font-weight-normal);
+}
+
+.font-caption-bold {
+  font-size: var(--font-size-caption);
+  line-height: var(--line-height-caption);
+  font-weight: var(--font-weight-medium);
+}
+
+.font-body {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  font-weight: var(--font-weight-normal);
+}
+
+.font-body-bold {
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Utility Classes - 布局工具类 */
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.gap-xs { gap: var(--spacing-xs); }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
+.gap-lg { gap: var(--spacing-lg); }
+.gap-xl { gap: var(--spacing-xl); }
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-fill-secondary);
+  border-radius: var(--radius-lg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}

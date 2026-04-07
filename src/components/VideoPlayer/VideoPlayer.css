@@ -1,0 +1,330 @@
+/* ===== VideoPlayer 100% 还原 Figma 376:4116 ===== */
+
+/* 根容器: 466×614, flex row, gap:2px */
+.vp-root {
+  box-sizing: border-box;
+  width: 466px;
+  height: 614px;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0;
+  gap: 2px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* ===== 376:4117 主视频列 325×614 ===== */
+.vp-main-col {
+  box-sizing: border-box;
+  flex: 0 0 325px;
+  width: 325px;
+  height: 614px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* 376:4118 视频图片: 325×578 */
+.vp-video-img {
+  box-sizing: border-box;
+  flex: 0 0 578px;
+  width: 325px;
+  height: 578px;
+  border-radius: 9.14px 0 0 0;
+  display: block;
+  object-fit: cover;
+}
+
+/* 376:4159 中心播放图标 absolute top:259 right:132 */
+.vp-center-play {
+  position: absolute;
+  top: 259px;
+  right: 132px;
+  width: 60px;
+  height: 60px;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 0.15s;
+}
+
+.vp-center-play.hidden {
+  opacity: 0;
+}
+
+/* ===== 376:4119 控制栏 325×37 ===== */
+.vp-ctrl {
+  box-sizing: border-box;
+  flex: 0 0 37px;
+  width: 325px;
+  height: 37px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 0 4.57px 0;
+  border-radius: 0 0 0 6.85px;
+  background: #000000;
+  gap: 4.57px;
+  position: relative;
+  cursor: default;
+  z-index: 3;
+}
+
+/* ===== 进度条区 ===== */
+.vp-progress-area {
+  width: 325px;
+  height: 3px;
+  position: relative;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* 376:4122 全轨道 opacity:0.32 白色 */
+.vp-track-full {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 325px;
+  height: 3px;
+  background: #FFFFFF;
+  opacity: 0.32;
+}
+
+/* 白色已播放进度段 */
+.vp-track-played {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #FFFFFF;
+  opacity: 0.8;
+  z-index: 2;
+  transition: width 0.1s linear;
+}
+
+/* 红色标记段 (通用) */
+.vp-red {
+  position: absolute;
+  top: 0;
+  height: 3px;
+  background: #F22D1F;
+  opacity: 0.8;
+  z-index: 3;
+  transform: rotate(-180deg);
+}
+
+/* ===== 376:4123 控制行 ===== */
+.vp-ctrl-row {
+  box-sizing: border-box;
+  flex: 0 0 23px;
+  width: 325px;
+  height: 23px;
+  align-self: stretch;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6px 0 0;
+}
+
+/* 左侧 播放图标 + 时间 */
+.vp-ctrl-left {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-basis: 95px;
+  height: 20px;
+}
+
+.vp-play-icon {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  object-fit: contain;
+}
+
+.vp-time {
+  display: flex;
+  align-items: center;
+  gap: 2.16px;
+  flex-basis: 75px;
+  height: 18px;
+}
+
+.vp-time-cur {
+  min-width: 33px;
+  font-size: 12px;
+  line-height: 18px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: #FFFFFF;
+  text-align: justify;
+}
+
+.vp-time-sep {
+  font-size: 10.61px;
+  line-height: 15.5px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: justify;
+}
+
+.vp-time-tot {
+  min-width: 32px;
+  font-size: 12px;
+  line-height: 18px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  text-align: justify;
+}
+
+/* 右侧 速度 + 音量 + 全屏 */
+.vp-ctrl-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 9.14px;
+  flex-basis: 148px;
+  height: 23px;
+}
+
+.vp-speeds {
+  display: flex;
+  align-items: center;
+  gap: 9.14px;
+  flex-basis: 89px;
+  height: 18px;
+}
+
+.vp-sp {
+  min-width: 12px;
+  font-size: 12px;
+  line-height: 18px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: #FFFFFF;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.vp-sp-active {
+  color: #326BFB;
+}
+
+/* 音量/全屏 图标包装 */
+.vp-icon-wrap {
+  box-sizing: border-box;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+  cursor: pointer;
+}
+
+.vp-vol-inner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 12px;
+  height: 11px;
+  position: relative;
+}
+
+/* ===== 394:5444 右侧帧面板 139px ===== */
+.vp-frames {
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  width: 139px;
+  height: 614px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+  gap: 2px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.vp-frames:hover {
+  opacity: 0.9;
+}
+
+/* ===== 376:4162 左帧条 69×614 ===== */
+.vp-thumb-col {
+  box-sizing: border-box;
+  overflow: hidden;
+  flex: 0 0 69px;
+  width: 69px;
+  height: 614px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  gap: 2px;
+  position: relative;
+}
+
+.vp-cover-tag {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 12px;
+  line-height: 18px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 400;
+  color: #FFFFFF;
+  pointer-events: none;
+}
+
+.vp-thumb {
+  box-sizing: border-box;
+  width: 69px;
+  align-self: stretch;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.vp-thumb-sel {
+  border: 4px solid #F22D1F;
+  background: #D9D9D9;
+}
+
+/* ===== 376:4170 右帧条 68×614 ===== */
+.vp-right-col {
+  box-sizing: border-box;
+  overflow: hidden;
+  flex: 1 1 auto;
+  width: 68px;
+  height: 614px;
+  align-self: stretch;
+  border-radius: 0 9.14px 9.14px 0;
+  display: block;
+  object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.vp-right-col:hover {
+  opacity: 0.85;
+}

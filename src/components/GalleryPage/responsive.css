@@ -1,0 +1,12 @@
+
+/* 响应式：窄屏降为 2 列 */
+@media screen and (max-width: 768px) {
+  .gp-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px 8px;
+  }
+
+  .gp-header {
+    padding: 4px 8px 12px;
+  }
+}

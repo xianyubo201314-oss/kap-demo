@@ -1,0 +1,278 @@
+/* AiPanel AI辅助面板 */
+
+.ai-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  /* 渐变边框 */
+  background: linear-gradient(#fff, #fff) padding-box,
+              linear-gradient(135deg, #326BFB, #9C27B0) border-box;
+  border: 1px solid transparent;
+  /* 背景渐变叠加 */
+  position: relative;
+}
+
+.ai-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: linear-gradient(136deg,
+    rgba(185,55,255,0.06) 0%,
+    rgba(53,80,255,0.08) 50%,
+    rgba(53,200,252,0.05) 100%);
+  pointer-events: none;
+}
+
+.ai-panel.collapsed {
+  cursor: pointer;
+}
+
+/* 头部 */
+.ai-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-header-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ai-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #252626;
+}
+
+.ai-close {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+}
+
+/* 打标 badge */
+.ai-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  background: linear-gradient(124deg, #FF4F42 7%, #F22D1F 100%);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.15s, opacity 0.15s;
+  align-self: flex-start;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-badge:hover { opacity: 0.9; transform: scale(0.98); }
+
+.ai-badge-selected {
+  outline: 2px solid #326BFB;
+  outline-offset: 1px;
+}
+
+.ai-badge-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+/* 提示行 */
+.ai-hint-row {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-hint-text {
+  font-size: 11px;
+  color: #898A8C;
+}
+
+.ai-divider {
+  height: 1px;
+  background: rgba(37,38,38,0.1);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* AI分区 */
+.ai-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-section-title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ai-section-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-section-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: #252626;
+}
+
+/* 内容盒 */
+.ai-items-box {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 7px 8px;
+  background: rgba(255,255,255,0.65);
+  border-radius: 6px;
+}
+
+.ai-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.ai-item-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 5px;
+  background: rgba(87,88,89,0.1);
+  border-radius: 3px;
+  font-size: 11px;
+  color: #575859;
+  white-space: nowrap;
+  flex-shrink: 0;
+  line-height: 18px;
+}
+
+.ai-item-text {
+  font-size: 11px;
+  line-height: 16px;
+  color: #252626;
+}
+
+/* 诊断 */
+.ai-diag-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.diag-label {
+  font-size: 11px;
+  color: #575859;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.diag-val {
+  font-size: 11px;
+  color: #252626;
+}
+
+/* 时长标签 */
+.ai-time-badge {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  background: rgba(255,255,255,0.7);
+  border-radius: 100px;
+  font-size: 11px;
+  color: #575859;
+}
+
+.ai-time-badge.blue-badge {
+  background: #ECF0FD;
+  color: #326BFB;
+}
+
+.ai-time-dots {
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+  height: 10px;
+}
+
+.tdt {
+  width: 2px;
+  height: 5px;
+  background: #575859;
+  border-radius: 1px;
+}
+
+.tdt.tall { height: 8px; }
+
+.blue-dot { background: #326BFB !important; }
+
+/* 规则卡片 */
+.rule-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 6px 8px;
+  border-radius: 5px;
+}
+
+.orange-rule { background: #FBF7F4; }
+.red-rule { background: #FBF4F6; }
+
+.rule-name {
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.rule-desc {
+  font-size: 11px;
+  line-height: 15px;
+}
+
+.orange-name { color: #D98900; }
+.orange-desc { color: #AC6C00; }
+.red-name { color: #F22D1F; }
+.red-desc { color: #c0262a; }
+
+/* 底部说明 */
+.ai-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding-top: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+.ai-footer-text {
+  font-size: 11px;
+  color: #898A8C;
+}
+
+.ai-feedback {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}

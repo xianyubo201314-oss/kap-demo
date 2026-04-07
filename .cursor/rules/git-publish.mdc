@@ -1,0 +1,17 @@
+---
+description: 用户说「发布」或要求推到 Git/GitHub 时，自动执行提交与推送流程
+alwaysApply: true
+---
+
+# 发布到 Git
+
+当用户消息里出现 **发布、推到 git、推代码、git push、更新远程仓库、同步 GitHub** 等意图时，在本项目根目录执行：
+
+1. 若尚未是 Git 仓库：先 `git init`，并确认存在 `.gitignore`（已忽略 `node_modules/`、`dist/`）。
+2. `git status` 查看变更。
+3. 若有未暂存或未提交的变更：执行 `git add -A`，再 `git commit`。
+   - 提交说明：优先使用用户在同一句话里给出的文案；否则用 `chore: 发布 YYYY-MM-DD`（中文注释写在 message 里也可）。
+4. 若已配置远程 `origin`：对当前分支执行 `git push`（首次可用 `git push -u origin main` 或当前分支名）。
+5. 若无远程、push 失败或需登录：用简体中文说明下一步（在 GitHub 建空仓库、复制 HTTPS 地址、`git remote add origin <url>` 等），不要假装已成功。
+
+注意：不要强行提交用户明确不想纳入版本控制的文件；默认不提交 `node_modules` 与 `dist`。

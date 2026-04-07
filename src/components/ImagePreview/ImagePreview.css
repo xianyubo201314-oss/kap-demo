@@ -1,0 +1,209 @@
+/* ===== ImagePreview 全屏图片预览组件 (Figma 372:4032) ===== */
+
+.ip-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10000;
+  background: #F3F7FE; /* 372:4032 背景色 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* --- 顶部工具栏 (504:23075) --- */
+.ip-topbar {
+  width: 100%;
+  height: 52px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 8px rgba(12, 18, 31, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  z-index: 5;
+}
+
+/* 页码胶囊 */
+.ip-badge {
+  height: 30px;
+  border-radius: 100px;
+  background: #E8E9EC;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 10px;
+  font-size: 14px;
+  line-height: 22px;
+  font-family: 'PingFang SC', sans-serif;
+  font-weight: 500;
+  color: #252626;
+  white-space: nowrap;
+}
+
+/* 工具组 */
+.ip-tools {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.ip-tool-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ip-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  object-fit: contain;
+  transition: opacity 0.15s;
+}
+
+.ip-icon:hover {
+  opacity: 0.7;
+}
+
+.ip-divider {
+  width: 1px;
+  height: 12px;
+  background: #E8E9EC;
+}
+
+.ip-close {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.ip-close:hover {
+  opacity: 0.7;
+}
+
+/* --- 中间主图区 --- */
+.ip-main {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ip-arrow-wrap {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+  transition: background 0.15s;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.ip-arrow-wrap.ip-arrow-left {
+  left: 47px;
+}
+
+.ip-arrow-wrap.ip-arrow-right {
+  right: 47px;
+}
+
+.ip-arrow-wrap:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.ip-disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ip-arrow {
+  width: 16px;
+  height: 29px;
+  object-fit: contain;
+}
+
+.ip-img-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: 100%;
+  padding: 0;
+}
+
+.ip-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.2s ease-out;
+}
+
+/* --- 底部略缩图区 --- */
+.ip-bottom {
+  width: 100%;
+  height: 148px;
+  background: #E8E9EC;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.ip-thumbnails {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+}
+
+.ip-thumb-item {
+  width: 84px;
+  height: 84px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.2s ease-out;
+  box-sizing: border-box;
+  border: 2px solid transparent;
+  flex-shrink: 0;
+}
+
+.ip-thumb-item:hover {
+  opacity: 0.8;
+}
+
+.ip-thumb-item.active {
+  opacity: 1;
+  border-color: #326BFB;
+}
+
+.ip-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
