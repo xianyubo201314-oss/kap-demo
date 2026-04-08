@@ -1,7 +1,7 @@
 {
   "name": "kap-demo",
   "version": "1.0.0",
-  "description": "高举报视频专审系统 - 基于Figma设计还原",
+  "description": "高举报直播间 - 基于Figma设计还原",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

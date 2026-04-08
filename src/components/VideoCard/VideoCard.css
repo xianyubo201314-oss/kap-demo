@@ -301,7 +301,8 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
-  overflow: hidden;
+  /* 允许举报项 hover 浮层溢出，避免被裁切 */
+  overflow: visible;
 }
 
 /* 举报信息卡片 */
@@ -313,7 +314,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .vc-report-topbar {
@@ -455,9 +456,11 @@
   flex-direction: row;
   gap: 8px;
   align-items: stretch;
+  overflow: visible;
 }
 
 .vc-report-item {
+  position: relative;
   flex: 1;
   background: #F5F7FA;
   border-radius: 8px;
@@ -467,10 +470,12 @@
   gap: 4px;
   cursor: pointer;
   transition: background 0.15s;
+  z-index: 0;
 }
 
 .vc-report-item:hover {
   background: #ECF0F8;
+  z-index: 20;
 }
 
 .vc-ri-text {
@@ -660,9 +665,47 @@
   white-space: pre-line;
 }
 
-.vc-hl-red { color: #F22D1F; }
-.vc-hl-green { color: #2A7722; }
-.vc-hl-orange { color: #AC6C00; }
+/* 敏感词高亮样式 - 胶囊型 */
+.vc-hl-red { 
+  color: #F22D1F; 
+  background-color: rgba(242, 45, 31, 0.1);
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+}
+.vc-hl-green { 
+  color: #2A7722; 
+  background-color: rgba(42, 119, 34, 0.1);
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+}
+.vc-hl-orange { 
+  color: #AC6C00; 
+  background-color: rgba(172, 108, 0, 0.1);
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+}
+.vc-hl-blue { 
+  color: #326BFB; 
+  background-color: rgba(50, 107, 251, 0.1);
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+}
+.vc-hl-strike { 
+  color: #8A8A8A; 
+  background-color: rgba(138, 138, 138, 0.1);
+  text-decoration: line-through;
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: inline-block;
+}
 
 /* ===== 右列 ===== */
 .vc-right {
@@ -985,17 +1028,12 @@
   align-items: center;
 }
 
-/* 举报项 hover 提示内容 */
-.vc-report-item {
-  position: relative;
-}
-
+/* 举报项 hover 浮层：在卡片上方，三角朝下；中列/举报卡 overflow 已 visible，减少顶边裁切 */
 .vc-ri-tooltip {
   position: absolute;
   bottom: calc(100% + 8px);
   left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.88);
   color: #fff;
   padding: 10px 14px;
   border-radius: 8px;
@@ -1003,14 +1041,13 @@
   line-height: 20px;
   white-space: normal;
   width: max-content;
-  max-width: 280px;
-  z-index: 100;
+  max-width: min(320px, 70vw);
+  z-index: 200;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
   pointer-events: none;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  /* 初始时略微向下偏移，hover 时升起 */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
   transform: translate(-50%, 4px);
 }
 
@@ -1022,7 +1059,7 @@
   transform: translateX(-50%);
   border-width: 6px;
   border-style: solid;
-  border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
+  border-color: rgba(0, 0, 0, 0.88) transparent transparent transparent;
 }
 
 .vc-report-item:hover .vc-ri-tooltip {
@@ -1035,7 +1072,8 @@
 .vc-mark-header {
   width: 1728px;
   height: 50px;
-  background: url('/figma-367-2687.png') center / cover no-repeat;
+  /* background: url('/figma-367-2687.png') center / cover no-repeat; */
+  background-color: #9857FF; /* 默认底色，会被 inline-style 覆盖 */
   display: flex;
   align-items: flex-start;
   padding-top: 8px;
@@ -1043,6 +1081,7 @@
   border-radius: 8px 8px 0 0;
   box-sizing: border-box;
   flex-shrink: 0;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .vc-mark-text {

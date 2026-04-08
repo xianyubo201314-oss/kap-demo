@@ -1,57 +1,68 @@
-/* ===== GalleryPage：参考稿顶栏 + 浅灰底 + 5×2 网格 ===== */
+/* ===== GalleryPage：全屏蒙层弹窗 + 统一 9:16 图集 ===== */
 
 .gp-root {
   box-sizing: border-box;
-  width: 100%;
-  flex: 1;
-  min-height: 0;
-  min-width: 0;
-  background: #f0f0f0;
-  position: relative;
+  position: fixed;
+  inset: 0;
+  z-index: 300;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  padding: 8px 0 20px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: rgba(12, 14, 18, 0.54);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
-/* 顶栏：与参考一致为浅色背景上的左文案 + 右关闭，不用整条白底工具栏 */
+.gp-modal {
+  box-sizing: border-box;
+  width: min(1728px, 100%);
+  height: min(940px, 100%);
+  border-radius: 16px;
+  background: linear-gradient(165deg, #f8f9fc 0%, #eef1f6 48%, #e6eaef 100%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 4px 24px rgba(15, 20, 30, 0.08),
+    0 24px 56px rgba(10, 15, 25, 0.22);
+  padding: 14px 14px 18px;
+  overflow: auto;
+}
+
 .gp-header {
   box-sizing: border-box;
-  flex-shrink: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 16px 14px;
-  position: relative;
-  width: 100%;
-  background: transparent;
-  z-index: 1;
+  padding: 2px 4px 14px;
+  border-bottom: 1px solid rgba(23, 24, 26, 0.06);
+  margin-bottom: 2px;
 }
 
 .gp-count {
   font-family: 'PingFang SC', -apple-system, sans-serif;
   font-size: 14px;
   line-height: 22px;
-  font-weight: 400;
-  color: #252626;
+  font-weight: 500;
+  color: #17181a;
 }
 
 .gp-close-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  margin: 0;
-  border: none;
-  background: transparent;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(23, 24, 26, 0.08);
+  background: rgba(255, 255, 255, 0.65);
+  color: #3a3b40;
   cursor: pointer;
-  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .gp-close-btn:hover {
-  opacity: 0.72;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(17, 22, 30, 0.12);
+  transform: scale(1.04);
 }
 
 .gp-close-btn:focus-visible {
@@ -60,46 +71,59 @@
 }
 
 .gp-close-icon {
-  width: 32px;
-  height: 32px;
-  display: block;
-  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 5 列 × 2 行，间距约 8px */
 .gp-grid {
   box-sizing: border-box;
   width: 100%;
-  max-width: 1680px;
-  margin: 0 auto;
-  padding: 0 16px;
+  margin: 0;
+  padding: 0;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
+  gap: 10px;
   align-content: start;
 }
 
 .gp-thumb {
   position: relative;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  transition: opacity 0.15s;
+  background: linear-gradient(145deg, #dfe3e9, #cfd5dd);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .gp-thumb:hover {
-  opacity: 0.94;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(17, 22, 30, 0.16);
+}
+
+/* 仅部分图有统一红框，粗细一致 */
+.gp-thumb--selected::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 3px solid #ef3a34;
+  border-radius: 12px;
+  pointer-events: none;
 }
 
 .gp-thumb-img {
   box-sizing: border-box;
   display: block;
   width: 100%;
-  aspect-ratio: 329 / 586;
+  aspect-ratio: 9 / 16;
   height: auto;
   object-fit: cover;
+  object-position: center;
   vertical-align: top;
-  border-radius: 8px;
+  border-radius: 12px;
+  image-rendering: auto;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .gp-play-overlay {
@@ -107,18 +131,21 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
+  width: 54px;
+  height: 54px;
+  border-radius: 999px;
+  background: rgba(20, 22, 26, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  display: grid;
+  place-items: center;
   pointer-events: none;
 }
 
-.gp-hand-overlay {
-  position: absolute;
-  right: 8%;
-  bottom: 6%;
-  width: 28px;
-  height: 28px;
-  object-fit: contain;
-  pointer-events: none;
+.gp-play-triangle {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 14px solid #fff;
+  margin-left: 3px;
 }

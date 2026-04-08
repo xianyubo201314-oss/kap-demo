@@ -37,7 +37,10 @@ const VideoCard = ({ onGalleryClick, tags = [], caseData = {} }) => {
       <div className={`vc-root ${tags.length > 0 ? 'marked' : ''}`}>
         {/* 打标状态顶部展示栏 367:2687 */}
         {tags.length > 0 && (
-          <div className="vc-mark-header">
+          <div 
+            className="vc-mark-header"
+            style={{ backgroundColor: tags[0].color || '#9857FF' }}
+          >
             <span className="vc-mark-text">
               {tags.map((t, index) => {
                 const label = t.key === 'Q' && index === tags.length - 1 ? '高热聚集问题-严重' : t.label;
@@ -156,14 +159,17 @@ const VideoCard = ({ onGalleryClick, tags = [], caseData = {} }) => {
             </div>
           </div>
 
-          {/* ASR + OCR 并排 */}
-          <AsrOcrRow />
+          {/* ASR + OCR 并排（随 case 变化） */}
+          <AsrOcrRow caseData={caseData} />
         </div>
 
         {/* 右列：评论区 + AI辅助 325px */}
         <div className="vc-right">
-          <CommentSection onImageClick={(images, idx) => setPreviewData({ images, index: idx })} />
-          <AiSection />
+          <CommentSection
+            comments={caseData.comments}
+            onImageClick={(images, idx) => setPreviewData({ images, index: idx })}
+          />
+          <AiSection caseData={caseData} />
         </div>
       </div>
     </div>
@@ -172,9 +178,22 @@ const VideoCard = ({ onGalleryClick, tags = [], caseData = {} }) => {
 }
 
 /* ===== ASR / OCR ===== */
-const AsrOcrRow = () => {
-  const [asrOnly, setAsrOnly] = useState(false)
-  const [ocrOnly, setOcrOnly] = useState(false)
+const AsrOcrRow = ({ caseData = {} }) => {
+  const asrData = caseData.asrData || {}
+  const ocrData = caseData.ocrData || {}
+
+  const asrTags = {
+    red: asrData.redTags || [],
+    green: asrData.greenTags || [],
+    orange: asrData.orangeTags || [],
+  }
+  const ocrTags = {
+    red: ocrData.redTags || [],
+    green: ocrData.greenTags || [],
+    orange: ocrData.orangeTags || [],
+  }
+  const asrHtml = asrData.text || '暂无语音识别结果。'
+  const ocrHtml = ocrData.text || '暂无 OCR 结果。'
 
   return (
     <div className="vc-asr-ocr-row">
@@ -188,23 +207,18 @@ const AsrOcrRow = () => {
         </div>
         <div className="vc-ab-body">
           <div className="vc-sw-tags">
-            {['#药食同源', '#养生新贵', '#健康养胃', '#治病良方', '#延年益寿', '#药食同源', '#养生新贵'].map((w, i) => (
-              <span key={i} className="vc-tag-sw-red" onClick={() => {}}>{w}</span>
+            {(asrTags.red || []).map((w, i) => (
+              <span key={`asr-r-${i}`} className="vc-tag-sw-red" onClick={() => {}}>{w}</span>
             ))}
-            {['#孕', '#窥', '#唏嘘', '#孕育'].map((w, i) => (
-              <span key={i} className="vc-tag-sw-green" onClick={() => {}}>{w}</span>
+            {(asrTags.green || []).map((w, i) => (
+              <span key={`asr-g-${i}`} className="vc-tag-sw-green" onClick={() => {}}>{w}</span>
             ))}
-            {['#筹码', '#对赌', '#镀金', '#暴涨', '#色'].map((w, i) => (
-              <span key={i} className="vc-tag-sw-orange" onClick={() => {}}>{w}</span>
+            {(asrTags.orange || []).map((w, i) => (
+              <span key={`asr-o-${i}`} className="vc-tag-sw-orange" onClick={() => {}}>{w}</span>
             ))}
           </div>
           <div className="vc-ab-text">
-            生于山野，向阳而生。它是山药之王，湖泊河畔，沃土生金。这里是安平。这里是河北安平——国家地理标志保护产品"安平小白嘴山药"的核心原产地。北纬38度黄金种植带，和厚的水土光热，<span className="vc-hl-green">孕</span>育出了山药界的真皮。皮毛色白，肉质如玉，细糯甜香，易煮易烂，<span className="vc-hl-red">药食同源</span>，<span className="vc-hl-red">健康养胃</span>，历经千年种植传承，从古时滋补圣品，到如今百姓日常<span className="vc-hl-red">治病良方</span>。
-            {'\n\n'}然而，就在这看似寻常的滋补背后，却藏着一条外人难以<span className="vc-hl-green">窥</span>见的、错综复杂的利益暗流。一根根白如玉、糯如蜜的小白嘴山药，从安平的沃土中被挖出，它们不仅仅是自然的馈赠，更是市场上博弈的<span className="vc-hl-orange">筹码</span>。
-            {'\n\n'}这些年，随着"<span className="vc-hl-red">药食同源</span>"理念的爆火，安平小白嘴这个千年品种，硬生生从无人问津的土疙瘩，被炒成了"<span className="vc-hl-red">养生新贵</span>"。资本的触角早已深入这片土地，他们哄抬地价，垄断优质鲜货，将原本几块钱一斤的普通食材，套上精美的包装，转身就敢在高端超市标出令人咋舌的天价。这价格的<span className="vc-hl-orange">暴涨</span>暴跌背后，是多少中间商和投机客的疯狂<span className="vc-hl-orange">对赌</span>。
-            {'\n\n'}更令人<span className="vc-hl-green">唏嘘</span>的是市场的乱象。外地山药纷纷涌入安平，在这片核心产区"洗澡"、"<span className="vc-hl-orange">镀金</span>"，冒充真正的"国家地理标志保护产品"。它们皮<span className="vc-hl-orange">色</span>雪白，但口感生硬，营养价值更是天差地别。这种劣币驱逐良币的戏码，每天都在上演。
-            {'\n\n'}真正的种植老农，守着祖辈留下的沃土，却在资本的碾压下举步维艰。他们不懂互联网，不会直播带货，只能眼睁睁看着自己精心培育的正宗小白嘴，在价格战中一败涂地。而那些贴上"安平"标签、实则以次充好的商贩，却在平台的流量加持下赚得盆满钵满。
-            {'\n\n'}这背后，是一个关于真实与虚假、传承与资本、良知与利益的深刻博弈。<span className="vc-hl-red">延年益寿</span>的山药，在这场无声的战争中，究竟谁是赢家？监管的缺位、平台的纵容、消费者的无知，共同构成了这出荒诞剧的舞台背景。
+            <span dangerouslySetInnerHTML={{ __html: asrHtml }} />
           </div>
         </div>
       </div>
@@ -219,39 +233,18 @@ const AsrOcrRow = () => {
         </div>
         <div className="vc-ab-body">
           <div className="vc-sw-tags">
-            {['#小白嘴', '#药食同源', '#养生新贵', '#健康食疗', '#治百病', '#药食同源'].map((w, i) => (
-              <span key={i} className="vc-tag-sw-red" onClick={() => {}}>{w}</span>
+            {(ocrTags.red || []).map((w, i) => (
+              <span key={`ocr-r-${i}`} className="vc-tag-sw-red" onClick={() => {}}>{w}</span>
             ))}
-            {['#孕育', '#窥见'].map((w, i) => (
-              <span key={i} className="vc-tag-sw-green" onClick={() => {}}>{w}</span>
+            {(ocrTags.green || []).map((w, i) => (
+              <span key={`ocr-g-${i}`} className="vc-tag-sw-green" onClick={() => {}}>{w}</span>
             ))}
-            {['#筹码', '#色泽', '#暴利'].map((w, i) => (
-              <span key={i} className="vc-tag-sw-orange" onClick={() => {}}>{w}</span>
+            {(ocrTags.orange || []).map((w, i) => (
+              <span key={`ocr-o-${i}`} className="vc-tag-sw-orange" onClick={() => {}}>{w}</span>
             ))}
           </div>
           <div className="vc-ab-text">
-            【00:03】安平小白嘴山药 国家地理标志保护产品
-            {'\n'}【00:08】北纬38度黄金种植带 和厚水土<span className="vc-hl-green">孕育</span>真品
-            {'\n'}【00:15】皮毛色白 肉质如玉 细糯甜香 易煮易烂 <span className="vc-hl-red">药食同源</span>
-            {'\n'}【00:24】历经千年种植传承 古时滋补圣品 当代<span className="vc-hl-red">健康食疗</span>首选
-            {'\n\n'}【00:41】然而…市场暗流涌动
-            {'\n'}【00:47】外人难以<span className="vc-hl-green">窥见</span>的利益链条
-            {'\n'}【00:53】每一根山药都是博弈的<span className="vc-hl-orange">筹码</span>
-            {'\n\n'}【01:02】"<span className="vc-hl-red">药食同源</span>"概念爆火
-            {'\n'}【01:09】千年土疙瘩摇身变<span className="vc-hl-red">养生新贵</span>
-            {'\n'}【01:18】资本入局 哄抬地价 垄断鲜货
-            {'\n'}【01:29】天价包装 普通食材变身<span className="vc-hl-red">治百病</span>神药
-            {'\n\n'}【01:44】市场乱象：外地山药涌入安平"洗澡"
-            {'\n'}【01:52】以次充好 <span className="vc-hl-orange">色泽</span>雪白但口感生硬
-            {'\n'}【02:01】劣币驱逐良币 每天上演
-            {'\n\n'}【02:15】平台带货数据：播放量52.5万 点赞34.5万
-            {'\n'}【02:23】评论区大量"种草"留言疑似刷量
-            {'\n'}【02:31】<span className="vc-hl-orange">暴利</span>链条：产地收购价3元/斤→直播间标价128元/斤
-            {'\n\n'}【02:45】老农心声：守着沃土 举步维艰
-            {'\n'}【02:53】正宗小白嘴 在资本碾压下节节败退
-            {'\n'}【03:12】谁来保护<span className="vc-hl-red">药食同源</span>的千年传承？
-            {'\n'}【03:31】监管缺位 平台纵容 消费者无知
-            {'\n'}【03:47】这场无声战争 谁是赢家？
+            <span dangerouslySetInnerHTML={{ __html: ocrHtml }} />
           </div>
         </div>
       </div>

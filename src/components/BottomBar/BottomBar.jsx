@@ -1,39 +1,28 @@
 import React, { useEffect, useState } from 'react'
+import { SHORTCUTS, ACTION_SHORTCUTS } from '../../data/shortcuts'
 import './BottomBar.css'
 
-const BottomBar = ({ onMark, activeTags = [] }) => {
-  const [activeKey, setActiveKey] = useState(null)
+const BottomBar = ({ onMark, activeTags = [], currentActiveKey = null }) => {
+  const [localActiveKey, setLocalActiveKey] = useState(null)
   const [submitting, setSubmitting] = useState(false)
 
-  // 快捷键列表数据 (提取自 376:4864 / 367:2560)
-  const shortcuts = [
-    { key: 'A', label: '政治相关',         color: '#F22D1F', bg: '#F22D1F1A' },
-    { key: 'S', label: '未成年相关',       color: '#E2006C', bg: '#E2006C1A' },
-    { key: 'R', label: '色情低俗',         color: '#E47600', bg: '#E476001A' },
-    { key: 'G', label: '违法违规',         color: '#326BFB', bg: '#E5F1FF' },
-    { key: 'D', label: '辱骂引战',         color: '#FF5539', bg: '#FF55391A' },
-    { key: 'W', label: '不实信息',         color: '#757779', bg: '#5758591A' },
-    { key: 'Q', label: '高热聚集问题-严重', color: '#9857FF', bg: '#9857FF1A' },
-    { key: 'T', label: '应急临时标签',     color: '#2A711A', bg: '#28541E1A' },
-    { key: 'P', label: '允许通过',         color: '#1E9E40', bg: '#DFF5DF' },
-  ]
+  // Use either the globally passed active key or the local one
+  const activeKey = currentActiveKey || localActiveKey
 
-  const actionShortcuts = [
-    { key: 'C', label: '提交',         color: '#326BFB', bg: '#E8F7FF' },
-    { key: 'X', label: '提交并结束',   color: '#326BFB', bg: '#E8F7FF' },
-  ]
-
+  // Local keydown is now only used if we don't have a global handler,
+  // but to prevent double-firing we'll rely mostly on the global one for marks
+  // and keep this for standalone testing if needed.
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return
       const k = e.key.toUpperCase()
-      const all = [...shortcuts, ...actionShortcuts]
+      const all = [...SHORTCUTS, ...ACTION_SHORTCUTS]
       if (all.find(s => s.key === k)) {
         e.preventDefault()
-        setActiveKey(k)
+        setLocalActiveKey(k)
         if (k === 'C') handleSubmit(false)
         if (k === 'X') handleSubmit(true)
-        setTimeout(() => setActiveKey(null), 150)
+        setTimeout(() => setLocalActiveKey(null), 150)
       }
     }
     window.addEventListener('keydown', onKeyDown)
@@ -47,8 +36,8 @@ const BottomBar = ({ onMark, activeTags = [] }) => {
   }
 
   const triggerKey = (key) => {
-    setActiveKey(key)
-    setTimeout(() => setActiveKey(null), 150)
+    setLocalActiveKey(key)
+    setTimeout(() => setLocalActiveKey(null), 150)
   }
 
   const renderShortcut = (s, index) => {
@@ -88,11 +77,11 @@ const BottomBar = ({ onMark, activeTags = [] }) => {
         <div className="bb-left-section">
           <span className="bb-label">快捷键位</span>
           <div className="bb-shortcut-list">
-            {shortcuts.map((s, idx) => renderShortcut(s, idx))}
+            {SHORTCUTS.map((s, idx) => renderShortcut(s, idx))}
           </div>
         </div>
 
-        {/* 右侧：按钮区域 (合并了提交等功能按键为统一标签样式，外加图钉和真实的提交按钮) */}
+        {/* 右侧：按钮区域 */}
         <div className="bb-right-section">
           {/* 图钉图标 */}
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="bb-pin-icon" xmlns="http://www.w3.org/2000/svg">
