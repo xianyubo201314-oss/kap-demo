@@ -16,8 +16,8 @@ export const GALLERY_ITEMS = [
   { id: 'coffee', url: u('photo-1495474472287-4d71bcdd2085'), alt: '咖啡' },
   { id: 'portrait', url: u('photo-1534528741775-53994a69daeb'), alt: '人像' },
   { id: 'desert', url: u('photo-1509316785289-025f5b846b35'), alt: '公路' },
-  { id: 'yam-broken', url: '/figma-394-5900.png', alt: '山药掰断特写（占位）' },
-  { id: 'yam-slices', url: '/figma-394-5929.png', alt: '山药片（占位）' },
+  { id: 'yam-broken', url: '/figma-394-5900.png', alt: '山药掰断特写' },
+  { id: 'yam-slices', url: '/figma-394-5929.png', alt: '山药片' },
 ]
 
 /** 与 lightbox 翻页顺序一致 */
